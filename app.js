@@ -3,9 +3,11 @@ const express = require('express');
 const expressSession = require('express-session');
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
-const pool = require('./db/pool.js')
-const pgSession = require('connect-pg-simple')(expressSession)
-require('dotenv').config()
+const pool = require('./db/pool.js');
+const pgSession = require('connect-pg-simple')(expressSession);
+const bcrypt = require("bcrypt");
+const indexRouter = require("./routes/index.js")
+require('dotenv').config();
 
 const app = express();
 
@@ -23,7 +25,7 @@ app.use(expressSession({
     resave: false,
     saveUninitialized: true,
     cookie: {maxAge: 1000 * 60 * 60 * 24 * 30, httpOnly: true, secure: true},
-}))
+}));
 
 app.get("/", (req,res) => {
     if(!req.session.viewCount){
@@ -32,9 +34,9 @@ app.get("/", (req,res) => {
     else {req.session.viewCount++}
     console.log(req.session.viewCount)
     res.render("index")
-})
+});
 
-const PORT= 3000
+const PORT= 3000;
 
 app.listen(PORT, () =>{
     console.log(`http://localhost:${PORT}`)
