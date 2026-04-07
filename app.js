@@ -27,14 +27,7 @@ app.use(expressSession({
     cookie: {maxAge: 1000 * 60 * 60 * 24 * 30, httpOnly: true, secure: true},
 }));
 
-app.get("/", (req,res) => {
-    if(!req.session.viewCount){
-        req.session.viewCount = 1;
-    }
-    else {req.session.viewCount++}
-    console.log(req.session.viewCount)
-    res.render("index")
-});
+app.use(indexRouter)
 
 const PORT= 3000;
 
