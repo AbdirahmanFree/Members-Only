@@ -9,7 +9,7 @@ async function hashedPassword(password) {
 
 async function comparePasswords(hashedPassword,password){
     const match = await bcrypt.compare(password, hashedPassword);
-     return done(null, false, { message: "Incorrect password" })
+     return match
 }
 
 module.exports = {
