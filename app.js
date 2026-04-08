@@ -5,7 +5,6 @@ const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const pool = require('./db/pool.js');
 const pgSession = require('connect-pg-simple')(expressSession);
-const bcrypt = require("bcrypt");
 const indexRouter = require("./routes/index.js")
 require('dotenv').config();
 require('./db/db.js');
