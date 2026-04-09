@@ -9,8 +9,6 @@ passport.use(
         try {
             queries.getUserByUsername(username).then((user) => {
                 if(!user){
-                    console.log(username)
-                    console.log(user)
                     console.log('user not found')
                     return done(null,false)
                 }
