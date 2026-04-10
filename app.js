@@ -2,11 +2,12 @@ const path = require('node:path');
 const express = require('express');
 const session = require('express-session');
 const pool = require('./db/pool.js');
+require('./db/db.js');
 const pgSession = require('connect-pg-simple')(session);
 const indexRouter = require("./routes/index.js")
 const passport = require('./auth/passport.js')
 require('dotenv').config();
-require('./db/db.js');
+
 
 const app = express();
 

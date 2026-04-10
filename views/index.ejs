@@ -9,6 +9,9 @@
     <h1>Members Only</h1>
     <% if(user) { %>
         <h2>Welcome Back <%= user.username %> </h1>
+            <form method="post" action="/log-out">
+                <button type="submit">log-out</button>
+            </form>
     <% } else { %>
         <a href="/sign-up">sign-up</a>
         <a href="/log-in">log-in</a>
