@@ -52,6 +52,7 @@ passport.deserializeUser(async (id,done) => {
 
     } catch(error){
         console.log(error)
+        done(error)
     }
    
 })
