@@ -12,7 +12,7 @@
             <form method="post" action="/log-out">
                 <button type="submit">log-out</button>
             </form>
-            <%if(user.authorized == false){ %>
+            <%if(user.is_authorized == false){ %>
                 <h2>Enter password to join secret message board</h2>
                 <form method="post" action="/join-group">
                     <input type="password" id="password" name="password"/>
@@ -20,8 +20,33 @@
                 </form>
             <%} else { %>
                 <div>
-                    <h2>Messages</h2>
-                    <ul></ul>
+                    <% if(messages.length == 0){ %>
+                        <h2>No messages</h2>
+                    <%} else { %>
+                        <div style="display: flex; flex-direction: column; justify-content: flex-end; min-width: 25%; background-color: bisque; padding: 24px 48px; height: 500px;">
+                            <ul style="display: flex; flex-direction: column; overflow-y: scroll;">
+                                <% messages.forEach((message) => { %>
+                                    <% if(message.user_id ==user.user_id){ %>
+                                        <li style="display: flex; flex-direction: column; align-self: flex-end; margin-left:32px ;">
+                                            <span style="border: 1px solid black; background-color: gray; color: white; width: max-content; padding: 4px 8px; border-radius: 8px; "><%=message.msg %></span>
+                    
+                                        </li>
+                                    <%} else { %>
+                                        <li style="display: flex; flex-direction: column; align-self: flex-start; margin-right: 32px;">
+                                            <span style="font-size: 8px;"><%=message.username%></span>
+                                            <span style="border: 1px solid black; background-color: blue; color: white; width: max-content; padding: 4px 8px; border-radius: 8px; "><%=message.msg %></span>
+                                            
+                                        </li>
+                                    <% } %>
+                
+                                <% }) %>
+                            </ul>
+                        <%} %>
+                        <form style="width: 100%;"  method="post" action="/create-message">
+                            <input style="width: 80%;" type="text" name="message" id="message"/>
+                            <button type="submit">post</button>
+                        </form>
+                     </div>
                 </div>
 
             <% } %>

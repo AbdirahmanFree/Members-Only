@@ -16,6 +16,7 @@ router.post("/log-in", passport.authenticate('local', {
 }))
 
 router.post("/join-group", indexController.joinGroupPost)
+router.post("/create-message", indexController.createMessagePost)
 
 
 module.exports = router;

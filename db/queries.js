@@ -33,10 +33,32 @@ async function authorizeUser(id){
 
 }
 
+async function getAllMessages(){
+    const { rows } = await pool.query(`SELECT * FROM messages`);
+    return rows
+}
+
+async function postMessage(message){
+    await pool.query(`
+        INSERT into messages(user_id,msg)
+        VALUES($1,$2)`, [message.user_id,message.message])
+}
+
+async function getMessagesAndUsers(){
+    const { rows } = await pool.query(`
+        SELECT msg, users.username, users.user_id FROM messages
+        JOIN users
+        ON users.user_id = messages.user_id`)
+    return rows
+}
+
 module.exports ={
     addUser,
     getUsers,
     getUserByUsername,
     getUserByID,
-    authorizeUser
+    authorizeUser,
+    getAllMessages,
+    postMessage,
+    getMessagesAndUsers
 }

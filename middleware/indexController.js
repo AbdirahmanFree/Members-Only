@@ -12,9 +12,21 @@ const validateCredentials = [
     body('password').trim(),
 ]
 
+const validateMessage = [
+  body('message')
+    .trim()
+    .notEmpty().withMessage('Message cannot be empty')
+    .isLength({ max: 500 }).withMessage('Message too long')
+];
 
 
-exports.homePageGet = (req,res) => {res.render("index.ejs", {user: req.user})}
+
+exports.homePageGet = (req,res) => {
+    queries.getMessagesAndUsers().then(messages => {
+        console.log(messages)
+        res.render("index.ejs", {user: req.user, messages: messages})
+    })
+}
 
 
 exports.signUpFormGet = (req,res) => {
@@ -80,3 +92,28 @@ exports.joinGroupPost = (req,res) => {
         console.log(error)
     }
 }
+
+exports.createMessagePost = [
+    validateMessage,
+    (req,res) => {
+        const errors = validationResult(req);
+        if(!errors.isEmpty()){
+            console.log(errors.errors)
+            return res.redirect('/')
+        }
+        else {
+            try{
+                const {message} = matchedData(req)
+                const user_id = req.user.user_id;
+                queries.postMessage({user_id,message}).then((response)=> {
+                    console.log('message posted')
+                    return res.redirect("/")
+                    
+                })
+            }catch(error){
+                console.log(error)
+            }
+
+        }
+    }
+]
