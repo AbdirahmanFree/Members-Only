@@ -85,7 +85,7 @@ exports.joinGroupPost = (req,res) => {
         if( process.env.GROUP_KEY === password){
             console.log('correct')
             queries.authorizeUser(user.user_id).then(newUser => {
-                console.log(newUser)
+                res.redirect("/")
             })
         }
     }catch(error){
