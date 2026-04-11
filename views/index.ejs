@@ -12,6 +12,20 @@
             <form method="post" action="/log-out">
                 <button type="submit">log-out</button>
             </form>
+            <%if(user.authorized == false){ %>
+                <h2>Enter password to join secret message board</h2>
+                <form method="post" action="/join-group">
+                    <input type="password" id="password" name="password"/>
+                    <button type="submit">Join</button>
+                </form>
+            <%} else { %>
+                <div>
+                    <h2>Messages</h2>
+                    <ul></ul>
+                </div>
+
+            <% } %>
+            
     <% } else { %>
         <a href="/sign-up">sign-up</a>
         <a href="/log-in">log-in</a>

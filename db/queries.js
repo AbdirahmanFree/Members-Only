@@ -24,9 +24,19 @@ async function getUserByID(id) {
     return rows[0]
 }
 
+async function authorizeUser(id){
+    await pool.query(`UPDATE users
+                SET is_authorized = TRUE
+                WHERE user_id = $1`, [id])
+    const user = await getUserByID(id)
+    return user
+
+}
+
 module.exports ={
     addUser,
     getUsers,
     getUserByUsername,
-    getUserByID
+    getUserByID,
+    authorizeUser
 }

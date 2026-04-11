@@ -15,5 +15,7 @@ router.post("/log-in", passport.authenticate('local', {
     failureRedirect: "/log-in"
 }))
 
+router.post("/join-group", indexController.joinGroupPost)
+
 
 module.exports = router;

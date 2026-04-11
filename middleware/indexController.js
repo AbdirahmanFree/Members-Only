@@ -65,3 +65,18 @@ exports.logOutFormPost =  (req,res) => {
         })
     })
 }
+
+exports.joinGroupPost = (req,res) => {
+    try{
+        const password = req.body.password
+        const user = req.user
+        if( process.env.GROUP_KEY === password){
+            console.log('correct')
+            queries.authorizeUser(user.user_id).then(newUser => {
+                console.log(newUser)
+            })
+        }
+    }catch(error){
+        console.log(error)
+    }
+}
